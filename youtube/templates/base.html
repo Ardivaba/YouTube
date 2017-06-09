@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>YouTube</title>
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	{% block scripts %}
+	{% endblock %}
+</head>
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/youtube"><span class="glyphicon glyphicon-home"></span> YouTube</a>
+			</div>
+	
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				{% if request.user.is_authenticated %}
+				<ul class="nav navbar-nav">
+					<li><a href="/youtube/videos"><span class="glyphicon glyphicon-tasks"></span> Videos</a></li>
+					<li><a href="/youtube/add_video"><span class="glyphicon glyphicon-book"></span> Add Video</a></li>
+				</ul>
+				{% endif %}
+				{% if request.user.is_authenticated %}
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="sign_out">Sign Out</a></li>
+				</ul>
+				{% elif not request.user.is_authenticated %}
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="sign_in">Sign In</a></li>
+					<li><a href="register">Register</a></li>
+				</ul>
+				{% endif %}
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		{% block body %}
+		{% endblock %}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<nav class="navbar navbar-default  navbar-fixed-bottom" role="navigation">
+		<div class="container text-center">
+			<p class="navbar-text col-md-12 col-sm-12 col-xs-12">Youtube for <a href="#">Ardi Vaba</a></p>
+		</div>
+	</nav>
+
+</body>
+</html>
