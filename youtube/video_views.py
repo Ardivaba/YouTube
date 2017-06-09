@@ -25,7 +25,7 @@ def videos(request):
 	if len(videos) < 1:
 		no_videos = True
 	return render(request, "videos.html", {
-		"videos": Video.objects.all(),
+		"videos": Video.objects.filter(user = request.user),
 		"no_videos": no_videos
 	})
 
