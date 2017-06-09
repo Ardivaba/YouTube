@@ -17,3 +17,6 @@ def add_video(request):
         })
 
 	return render(request, "add_video.html", {})
+
+def videos(request):
+	return render(request, "videos.html", {})

@@ -17,5 +17,6 @@ urlpatterns = [
 	url(r"^login_success", user_views.login_success, name = "login_success"),
 
 	# Videos
-	url(r"^add_video", video_views.add_video, name = "add_video")
+	url(r"^add_video", video_views.add_video, name = "add_video"),
+	url(r"^videos", video_views.videos, name = "videos")
 ]
