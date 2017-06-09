@@ -29,17 +29,21 @@ def create_user(request):
 
 # Sign in
 def sign_in(request):
+	context = {}
+
 	if "username" in request.POST and "password" in request.POST:
 		username = request.POST["username"]
 		password = request.POST["password"]
 
 		user = authenticate(username=username, password=password)
-		login(request, user)
-		if user is not None:
-			return HttpResponsePermanentRedirect("/youtube/login_success")
 
-	context = {
-	}
+		try:
+			login(request, user)
+			if user is not None:
+				return HttpResponsePermanentRedirect("/youtube/index")
+		except:
+			return render(request, "sign_in.html", context)
+
 	return render(request, "sign_in.html", context)
 
 # Sign out
@@ -48,3 +52,10 @@ def sign_out(request):
 	context = {
 	}
 	return render(request, "sign_out.html", context)
+
+# Login success
+def login_success(request):
+	logout(request)
+	context = {
+	}
+	return render(request, "login_success.html", context)

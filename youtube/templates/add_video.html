@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+	<h1>Upload video</h1>
+	<p>Here you can upload a video.</p>
+
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label"  for="tite">Title</label>
+			<div class="controls">
+			<input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+			<p class="help-block">Title can contain whatever</p>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label"  for="description">Description</label>
+			<div class="controls">
+			<input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+			<p class="help-block">Short description for the video</p>
+			</div>
+		</div>
+
+		<label class="btn btn-default btn-file">
+			Browse <input type="file" id="video" name="myfile" style="display: none;">
+		</label>
+		<button id="upload_button" class="btn btn-primary" type="submit">Upload</button>
+	</form>
+
+	{% if uploaded_file_url %}
+		<p>Video sucessfully uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+	{% endif %}
+
+	<script>
+	$(document).ready(function() {
+		$("#upload_button").hide();
+		document.getElementById("video").onchange = function() {
+		    $("#upload_button").show();
+		};
+	});
+	</script>
+{% endblock %}
