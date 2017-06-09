@@ -3,12 +3,12 @@
 	<h1>Upload video</h1>
 	<p>Here you can upload a video.</p>
 
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" id="upload_form" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label"  for="tite">Title</label>
 			<div class="controls">
-			<input type="text" id="title" name="title" placeholder="" class="input-xlarge">
+			<input type="text" id="title" name="title" placeholder="" class="input-xlarge" required>
 			<p class="help-block">Title can contain whatever</p>
 			</div>
 		</div>
@@ -16,27 +16,50 @@
 		<div class="control-group">
 			<label class="control-label"  for="description">Description</label>
 			<div class="controls">
-			<input type="text" id="description" name="description" placeholder="" class="input-xlarge">
+			<input type="text" id="description" name="description" placeholder="" class="input-xlarge" required>
 			<p class="help-block">Short description for the video</p>
 			</div>
 		</div>
 
 		<label class="btn btn-default btn-file">
-			Browse <input type="file" id="video" name="myfile" style="display: none;">
+			Browse <input type="file" id="video" name="video" style="display: none;">
 		</label>
 		<button id="upload_button" class="btn btn-primary" type="submit">Upload</button>
 	</form>
 
 	{% if uploaded_file_url %}
-		<p>Video sucessfully uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+	<br>
+	<div class="alert alert-success">
+		<strong>Success!</strong> Video uploaded
+	</div>
 	{% endif %}
 
 	<script>
 	$(document).ready(function() {
+		function validFile(stringToCheck, acceptableExtensionsArray, required) {
+			if (required == false && stringToCheck.length == 0) { return true; }
+			for (var i = 0; i < acceptableExtensionsArray.length; i++) {
+			    if (stringToCheck.toLowerCase().endsWith(acceptableExtensionsArray[i].toLowerCase())) { return true; }
+			}
+
+			return false;
+		}
+
 		$("#upload_button").hide();
 		document.getElementById("video").onchange = function() {
 		    $("#upload_button").show();
 		};
+
+		$("#upload_form").submit(function() {
+			var filePath = $("#video").val();
+			if(validFile(filePath, ["mp4"], true)) {
+				return true;
+			} else {
+				alert("Video must have .mp4 extension!")
+			}
+
+			return false;
+		});
 	});
 	</script>
 {% endblock %}

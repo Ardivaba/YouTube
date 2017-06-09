@@ -2,5 +2,23 @@
 
 {% block body %}
 	<h1>Videos</h1>
-	<p>List of videos</p>
+
+	{% for video in videos %}
+	<div class="row">
+		<div class="col-md-12 description-box">
+			<h2>{{video.title}}</h2>
+			<p>{{video.description}}</p>
+			<video width="300" height="200" class="pull-left" controls>
+				<source src="{{video.video_url}}" type="video/mp4">
+			</video>
+		</div>
+	</div>
+	<hr>
+	{% endfor %}
+
+	{% if no_videos %}
+	<p>No videos added yet.</p>
+	{% endif %}
+
+
 {% endblock %}
